@@ -13,7 +13,7 @@ import com.ringbert.tilegame.inventory.Inventory;
 public class Player extends Creature {
 
 	// Animations
-	private Animation animDown, animUp, animLeft, animRight;
+	private Animation animDown, animUp, animLeft, animRight, animAttackDown;
 
 	// Attack timer
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
@@ -35,6 +35,7 @@ public class Player extends Creature {
 		animUp = new Animation(500, Assets.player_up);
 		animLeft = new Animation(500, Assets.player_left);
 		animRight = new Animation(500, Assets.player_right);
+		animAttackDown = new Animation(500, Assets.player_attack_down);
 
 		inventory = new Inventory(handler);
 
@@ -47,6 +48,7 @@ public class Player extends Creature {
 		animUp.tick();
 		animLeft.tick();
 		animRight.tick();
+		animAttackDown.tick();
 		// Movement
 		getInput();
 		move();
@@ -145,7 +147,10 @@ public class Player extends Creature {
 			return animUp.getCurrentFrame();
 		} else if (yMove > 0) {
 			return animDown.getCurrentFrame();
-		} else {
+		}else if(handler.getKeyManager().aDown){
+			return animAttackDown.getCurrentFrame();
+		}
+		else {
 			return Assets.player;
 		}
 

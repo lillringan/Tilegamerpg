@@ -8,6 +8,7 @@ public class Assets {
 	
 	public static BufferedImage dirt, grass, wall, tree, rock, wood, player, goblin;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
+	public static BufferedImage[] player_attack_down;
 	public static BufferedImage[] goblin_down, goblin_up, goblin_left, goblin_right;
 	public static BufferedImage[] btn_start;
 	
@@ -18,11 +19,13 @@ public class Assets {
 		btn_start = new BufferedImage[2];
 		btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);
 		btn_start[1] = sheet.crop(width * 6, height * 5, width * 2, height);
-		
+		//Player move
 		player_down = new BufferedImage[2];
 		player_up = new BufferedImage[2];
 		player_left = new BufferedImage[2];
 		player_right = new BufferedImage[2];
+		//Player attack
+		player_attack_down = new BufferedImage[2];
 		
 		player_down[0] = sheet.crop(width * 4, 0, width, height);
 		player_down[1] = sheet.crop(width * 5, 0, width, height);
@@ -37,6 +40,9 @@ public class Assets {
 		player_right[1] = sheet.crop(width * 5, height, width, height);
 		
 		player = sheet.crop(width * 4, 0, width, height);
+		
+		player_attack_down[0] = sheet.crop(0, height * 3, width, height);
+		player_attack_down[1] = sheet.crop(width, height * 3, width, height);
 		
 		goblin_down = new BufferedImage[2];
 		goblin_up = new BufferedImage[2];
