@@ -6,6 +6,8 @@ import com.ringbert.tilegame.Handler;
 import com.ringbert.tilegame.entities.EntityManager;
 import com.ringbert.tilegame.entities.creatures.Player;
 import com.ringbert.tilegame.entities.creatures.monster.Zombie;
+import com.ringbert.tilegame.entities.statics.Fence;
+import com.ringbert.tilegame.entities.statics.Gate;
 import com.ringbert.tilegame.entities.statics.Rock;
 import com.ringbert.tilegame.entities.statics.Tree;
 import com.ringbert.tilegame.items.ItemManager;
@@ -43,6 +45,10 @@ public class World {
 		entityManager.addEntity(new Tree(handler, 100, 100));
 		entityManager.addEntity(new Rock(handler, 100, 450));
 		entityManager.addEntity(new Zombie(handler, 200, 400));
+		for(int i = 128; i < 1024; i+= 64){
+			entityManager.addEntity(new Fence(handler, i, 320));
+		}
+		entityManager.addEntity(new Gate(handler, 1024, 250));
 		
 		loadWorld(path);
 		

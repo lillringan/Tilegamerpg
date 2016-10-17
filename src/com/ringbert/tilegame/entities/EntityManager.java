@@ -33,7 +33,6 @@ public class EntityManager {
 		this.player = player;
 		entities = new ArrayList<Entity>();
 		addEntity(player);
-		
 	}
 	
 	public void tick(){
@@ -82,5 +81,5 @@ public class EntityManager {
 	public void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
 	}
-	
+
 }

@@ -6,9 +6,9 @@ public class Assets {
 	
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage dirt, grass, wall, tree, rock, wood, player, goblin;
+	public static BufferedImage dirt, grass, wall, tree, rock, wood, fence, gate, player, goblin;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
-	public static BufferedImage[] player_attack_down;
+	public static BufferedImage[] player_attack_down, player_attack_up, player_attack_left, player_attack_right;
 	public static BufferedImage[] goblin_down, goblin_up, goblin_left, goblin_right;
 	public static BufferedImage[] btn_start;
 	
@@ -26,6 +26,9 @@ public class Assets {
 		player_right = new BufferedImage[2];
 		//Player attack
 		player_attack_down = new BufferedImage[2];
+		player_attack_up = new BufferedImage[2];
+		player_attack_left = new BufferedImage[2];
+		player_attack_right = new BufferedImage[2];
 		
 		player_down[0] = sheet.crop(width * 4, 0, width, height);
 		player_down[1] = sheet.crop(width * 5, 0, width, height);
@@ -43,6 +46,15 @@ public class Assets {
 		
 		player_attack_down[0] = sheet.crop(0, height * 3, width, height);
 		player_attack_down[1] = sheet.crop(width, height * 3, width, height);
+		
+		player_attack_right[0] = sheet.crop(width * 2, height * 3, width, height);
+		player_attack_right[1] = sheet.crop(width * 3, height * 3, width, height);
+		
+		player_attack_up[0] = sheet.crop(0, height * 4, width, height);
+		player_attack_up[1] = sheet.crop(width, height * 4, width, height);
+		
+		player_attack_left[0] = sheet.crop(width * 2, height * 4, width, height);
+		player_attack_left[1] = sheet.crop(width * 3, height * 4, width, height);
 		
 		goblin_down = new BufferedImage[2];
 		goblin_up = new BufferedImage[2];
@@ -69,6 +81,8 @@ public class Assets {
 		wall = sheet.crop(width * 3, 0, width, height);
 		rock = sheet.crop(0, height * 2, width, height);
 		wood = sheet.crop(width, height, width, height);
+		fence = sheet.crop(width * 2, height, width, height);
+		gate = sheet.crop(width * 3, height, width, height);
 		
 		
 		

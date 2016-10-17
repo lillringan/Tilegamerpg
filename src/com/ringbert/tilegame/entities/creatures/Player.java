@@ -2,10 +2,13 @@ package com.ringbert.tilegame.entities.creatures;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import com.ringbert.tilegame.Handler;
 import com.ringbert.tilegame.entities.Entity;
+import com.ringbert.tilegame.entities.statics.Gate;
 import com.ringbert.tilegame.gfx.Animation;
 import com.ringbert.tilegame.gfx.Assets;
 import com.ringbert.tilegame.inventory.Inventory;
@@ -13,12 +16,15 @@ import com.ringbert.tilegame.inventory.Inventory;
 public class Player extends Creature {
 
 	// Animations
-	private Animation animDown, animUp, animLeft, animRight, animAttackDown;
+	private Animation animDown, animUp, animLeft, animRight;
+	private Animation animAttackDown, animAttackUp, animAttackLeft, animAttackRight;
+	private int animSpeed;
 
 	// Attack timer
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
 
 	private Inventory inventory;
+	private float sightRange;
 
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -27,15 +33,20 @@ public class Player extends Creature {
 		bounds.y = 44;
 		bounds.width = 19;
 		bounds.height = 19;
-		
+
 		health = 20;
+		sightRange = 128;
 
 		// Animations
-		animDown = new Animation(500, Assets.player_down);
-		animUp = new Animation(500, Assets.player_up);
-		animLeft = new Animation(500, Assets.player_left);
-		animRight = new Animation(500, Assets.player_right);
-		animAttackDown = new Animation(500, Assets.player_attack_down);
+		animSpeed = 500;
+		animDown = new Animation(animSpeed, Assets.player_down);
+		animUp = new Animation(animSpeed, Assets.player_up);
+		animLeft = new Animation(animSpeed, Assets.player_left);
+		animRight = new Animation(animSpeed, Assets.player_right);
+		animAttackDown = new Animation(animSpeed, Assets.player_attack_down);
+		animAttackUp = new Animation(animSpeed, Assets.player_attack_up);
+		animAttackLeft = new Animation(animSpeed, Assets.player_attack_left);
+		animAttackRight = new Animation(animSpeed, Assets.player_attack_right);
 
 		inventory = new Inventory(handler);
 
@@ -49,6 +60,9 @@ public class Player extends Creature {
 		animLeft.tick();
 		animRight.tick();
 		animAttackDown.tick();
+		animAttackUp.tick();
+		animAttackLeft.tick();
+		animAttackRight.tick();
 		// Movement
 		getInput();
 		move();
@@ -93,7 +107,7 @@ public class Player extends Creature {
 			if (e.equals(this))
 				continue;
 			if (e.getCollosionBounds(0, 0).intersects(ar)) {
-				e.hurt(1);
+				e.hurt(randInt(1, 5));
 				return;
 			}
 		}
@@ -120,6 +134,15 @@ public class Player extends Creature {
 		if (handler.getKeyManager().right) {
 			xMove = speed;
 		}
+		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
+
+			ArrayList<Entity> entities = handler.getWorld().getEntityManager().getEntities();
+			for (Entity entity : entities) {
+				if (entity.getClass().equals(Gate.class)) {
+					changeGate((Gate) entity);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -127,6 +150,10 @@ public class Player extends Creature {
 		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
 				(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 		inventory.render(g);
+	}
+
+	public void changeGate(Gate gate) {
+		gate.changeGate();
 	}
 
 	public Inventory getInventory() {
@@ -147,10 +174,15 @@ public class Player extends Creature {
 			return animUp.getCurrentFrame();
 		} else if (yMove > 0) {
 			return animDown.getCurrentFrame();
-		}else if(handler.getKeyManager().aDown){
+		} else if (handler.getKeyManager().aDown) {
 			return animAttackDown.getCurrentFrame();
-		}
-		else {
+		} else if (handler.getKeyManager().aUp) {
+			return animAttackUp.getCurrentFrame();
+		} else if (handler.getKeyManager().aLeft) {
+			return animAttackLeft.getCurrentFrame();
+		} else if (handler.getKeyManager().aRight) {
+			return animAttackRight.getCurrentFrame();
+		} else {
 			return Assets.player;
 		}
 
