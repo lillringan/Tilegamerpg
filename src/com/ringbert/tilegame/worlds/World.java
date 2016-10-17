@@ -45,6 +45,10 @@ public class World {
 		entityManager.addEntity(new Tree(handler, 100, 100));
 		entityManager.addEntity(new Rock(handler, 100, 450));
 		entityManager.addEntity(new Zombie(handler, 200, 400));
+		entityManager.addEntity(new Zombie(handler, 400, 400));
+		entityManager.addEntity(new Zombie(handler, 300, 500));
+		entityManager.addEntity(new Zombie(handler, 150, 550));
+		entityManager.addEntity(new Zombie(handler, 100, 600));
 		for(int i = 128; i < 1024; i+= 64){
 			entityManager.addEntity(new Fence(handler, i, 320));
 		}

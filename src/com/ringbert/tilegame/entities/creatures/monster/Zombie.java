@@ -7,6 +7,7 @@ import com.ringbert.tilegame.Handler;
 import com.ringbert.tilegame.entities.creatures.Creature;
 import com.ringbert.tilegame.gfx.Animation;
 import com.ringbert.tilegame.gfx.Assets;
+import com.ringbert.tilegame.items.Item;
 
 public class Zombie extends Monster {
 
@@ -21,6 +22,9 @@ public class Zombie extends Monster {
 		bounds.y = 44;
 		bounds.width = 19;
 		bounds.height = 19;
+		
+		startX = x;
+		startY = y;
 
 		animDown = new Animation(500, Assets.goblin_down);
 		animUp = new Animation(500, Assets.goblin_up);
@@ -60,7 +64,9 @@ public class Zombie extends Monster {
 
 	@Override
 	public void die() {
-
+		for(int i = 1; i <= randInt(4, 10); i++){
+			handler.getWorld().getItemManager().addItem(Item.goldbarItem.createNew((int) x + width / 2 + randInt(-20, 20),(int) y + height / 2 + randInt(-20, 20)));
+		}
 	}
 
 	private BufferedImage getCurrentAnimationFrame() {

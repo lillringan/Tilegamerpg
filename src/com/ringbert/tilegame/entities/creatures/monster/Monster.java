@@ -34,9 +34,6 @@ public abstract class Monster extends Creature {
 		sightRange = 128;
 		chasing = false;
 
-		startX = 400;
-		startY = 200;
-
 		lastTime = true;
 		timer = 0;
 		last = 0;

@@ -6,7 +6,7 @@ public class Assets {
 	
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage dirt, grass, wall, tree, rock, wood, fence, gate, player, goblin;
+	public static BufferedImage dirt, grass, wall, tree, rock, wood, fence, gate, player, goblin, goldbar;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] player_attack_down, player_attack_up, player_attack_left, player_attack_right;
 	public static BufferedImage[] goblin_down, goblin_up, goblin_left, goblin_right;
@@ -83,6 +83,7 @@ public class Assets {
 		wood = sheet.crop(width, height, width, height);
 		fence = sheet.crop(width * 2, height, width, height);
 		gate = sheet.crop(width * 3, height, width, height);
+		goldbar = sheet.crop(width, height * 2, width, height);
 		
 		
 		
