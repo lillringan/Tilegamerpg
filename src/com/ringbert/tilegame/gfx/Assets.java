@@ -6,15 +6,17 @@ public class Assets {
 	
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage dirt, grass, wall, tree, rock, wood, fence, gate, player, goblin, goldbar;
+	public static BufferedImage dirt, grass, wall, tree, rock, wood, fence, gate, player, zombie, goblin, goldbar;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] player_attack_down, player_attack_up, player_attack_left, player_attack_right;
+	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] goblin_down, goblin_up, goblin_left, goblin_right;
 	public static BufferedImage[] btn_start;
 	
 	public static void init(){
 		
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
+		SpriteSheet goblinSheet = new SpriteSheet(ImageLoader.loadImage("/textures/goblinsheet.png"));
 		
 		btn_start = new BufferedImage[2];
 		btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);
@@ -56,24 +58,42 @@ public class Assets {
 		player_attack_left[0] = sheet.crop(width * 2, height * 4, width, height);
 		player_attack_left[1] = sheet.crop(width * 3, height * 4, width, height);
 		
+		//Zombie
+		zombie_down = new BufferedImage[2];
+		zombie_up = new BufferedImage[2];
+		zombie_left = new BufferedImage[2];
+		zombie_right = new BufferedImage[2];
+		
+		zombie_down[0] = sheet.crop(width * 4, height * 2, width, height);
+		zombie_down[1] = sheet.crop(width * 5, height * 2, width, height);
+		
+		zombie_up[0] = sheet.crop(width * 6, height * 2, width, height);
+		zombie_up[1] = sheet.crop(width * 7, height * 2, width, height);
+		
+		zombie_left[0] = sheet.crop(width * 6, height * 3, width, height);
+		zombie_left[1] = sheet.crop(width * 7, height * 3, width, height);
+		
+		zombie_right[0] = sheet.crop(width * 4, height * 3, width, height);
+		zombie_right[1] = sheet.crop(width * 5, height * 3, width, height);
+		
+		zombie = sheet.crop(width * 4, height * 2, width, height);
+		
+		//Goblin
+		
 		goblin_down = new BufferedImage[2];
-		goblin_up = new BufferedImage[2];
-		goblin_left = new BufferedImage[2];
 		goblin_right = new BufferedImage[2];
+		goblin_left = new BufferedImage[2];
 		
-		goblin_down[0] = sheet.crop(width * 4, height * 2, width, height);
-		goblin_down[1] = sheet.crop(width * 5, height * 2, width, height);
+		goblin_down[0] = goblinSheet.crop(0, 0, width, height);
+		goblin_down[1] = goblinSheet.crop(width, 0, width, height);
 		
-		goblin_up[0] = sheet.crop(width * 6, height * 2, width, height);
-		goblin_up[1] = sheet.crop(width * 7, height * 2, width, height);
+		goblin_right[0] = goblinSheet.crop(width * 2, 0, width, height);
+		goblin_right[1] = goblinSheet.crop(width * 3, 0, width, height);
 		
-		goblin_left[0] = sheet.crop(width * 6, height * 3, width, height);
-		goblin_left[1] = sheet.crop(width * 7, height * 3, width, height);
+		goblin_left[0] = goblinSheet.crop(width * 4, 0, width, height);
+		goblin_left[1] = goblinSheet.crop(width * 5, 0, width, height);
 		
-		goblin_right[0] = sheet.crop(width * 4, height * 3, width, height);
-		goblin_right[1] = sheet.crop(width * 5, height * 3, width, height);
-		
-		goblin = sheet.crop(width * 4, height * 2, width, height);
+		goblin = goblinSheet.crop(0, 0, width, height);
 		
 		tree = sheet.crop(0, 0, width, height * 2);
 		dirt = sheet.crop(width, 0, width, height);

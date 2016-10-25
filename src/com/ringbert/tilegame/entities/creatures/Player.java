@@ -24,6 +24,7 @@ public class Player extends Creature {
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
 
 	private Inventory inventory;
+
 	private float sightRange;
 
 	public Player(Handler handler, float x, float y) {
@@ -35,8 +36,6 @@ public class Player extends Creature {
 		bounds.height = 19;
 
 		health = 20;
-		sightRange = 128;
-
 		// Animations
 		animSpeed = 500;
 		animDown = new Animation(animSpeed, Assets.player_down);
@@ -49,6 +48,8 @@ public class Player extends Creature {
 		animAttackRight = new Animation(animSpeed, Assets.player_attack_right);
 
 		inventory = new Inventory(handler);
+
+		sightRange = 128;
 
 	}
 
@@ -135,13 +136,7 @@ public class Player extends Creature {
 			xMove = speed;
 		}
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
-
-			ArrayList<Entity> entities = handler.getWorld().getEntityManager().getEntities();
-			for (Entity entity : entities) {
-				if (entity.getClass().equals(Gate.class)) {
-					changeGate((Gate) entity);
-				}
-			}
+			changeGate();
 		}
 	}
 
@@ -154,6 +149,15 @@ public class Player extends Creature {
 
 	public void changeGate(Gate gate) {
 		gate.changeGate();
+	}
+
+	public void changeGate() {
+		ArrayList<Entity> sphereCheck = sphereCollide(x, y, sightRange);
+		for (Entity e : sphereCheck) {
+			if (e.getClass().equals(Gate.class)) {
+				changeGate((Gate) e);
+			}
+		}
 	}
 
 	public Inventory getInventory() {
@@ -185,6 +189,6 @@ public class Player extends Creature {
 		} else {
 			return Assets.player;
 		}
-
 	}
+
 }

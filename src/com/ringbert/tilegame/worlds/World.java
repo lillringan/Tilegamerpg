@@ -1,10 +1,10 @@
 package com.ringbert.tilegame.worlds;
 
 import java.awt.Graphics;
-
 import com.ringbert.tilegame.Handler;
 import com.ringbert.tilegame.entities.EntityManager;
 import com.ringbert.tilegame.entities.creatures.Player;
+import com.ringbert.tilegame.entities.creatures.monster.Goblin;
 import com.ringbert.tilegame.entities.creatures.monster.Zombie;
 import com.ringbert.tilegame.entities.statics.Fence;
 import com.ringbert.tilegame.entities.statics.Gate;
@@ -30,9 +30,11 @@ public class World {
 	
 	private int[][] tiles;
 	
+	
 	public World(Handler handler, String path){
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+		
 		itemManager = new ItemManager(handler);
 		entityManager.addEntity(new Tree(handler, 400, 30));
 		entityManager.addEntity(new Tree(handler, 350, 30));
@@ -49,6 +51,7 @@ public class World {
 		entityManager.addEntity(new Zombie(handler, 300, 500));
 		entityManager.addEntity(new Zombie(handler, 150, 550));
 		entityManager.addEntity(new Zombie(handler, 100, 600));
+		entityManager.addEntity(new Goblin(handler, 100, 400));
 		for(int i = 128; i < 1024; i+= 64){
 			entityManager.addEntity(new Fence(handler, i, 320));
 		}
@@ -93,7 +96,7 @@ public class World {
 		return t;
 	}
 	
-	private void loadWorld(String path){
+	protected void loadWorld(String path){
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
 		width = Utils.parseInt(tokens[0]);
