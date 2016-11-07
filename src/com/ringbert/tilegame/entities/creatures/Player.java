@@ -138,6 +138,9 @@ public class Player extends Creature {
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_E)) {
 			changeGate();
 		}
+		if(handler.getMouseManager().isRightPressed()){
+			getInventory().removeItem();
+		}
 	}
 
 	@Override
